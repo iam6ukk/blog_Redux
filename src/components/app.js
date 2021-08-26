@@ -1,9 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+// import PropTypes from "prop-types";
 
 export default class App extends Component {
   render() {
     return (
-      <div>React simple starter</div>
+      <div>
+        {this.props.children}
+
+        {/* 자식 컴포넌트를 보여주지 위해 App에서 this.props.children을 랜더링해야 함 */}
+      </div>
     );
   }
 }
