@@ -5,6 +5,7 @@ import { Route, IndexRoute } from "react-router";
 import App from "./components/app";
 import PostsIndex from "./components/posts_index";
 import PostsNew from "./components/posts_new";
+import PostsShow from "./components/posts_show";
 
 export default (
   <Route path="/" component={App}>
@@ -12,6 +13,8 @@ export default (
     {/* 라우트가 포워드 슬래시이면 App과 PostIndex를 보여줌 
         기본 라우트로 보여지도록 함 */}
     <Route path="posts/new" component={PostsNew} />
+    <Route path="posts/:id" component={PostsShow} />
+    {/* 포스트의 id를 파라미터로  */}
   </Route>
 );
 
