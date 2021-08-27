@@ -15,7 +15,7 @@ class PostsIndex extends Component {
   renderPosts() {
     return this.props.posts.map((post) => {
       return (
-        <li className="lsit-group-item" key={post.id}>
+        <li className="list-group-item" key={post.id}>
           <Link to={"posts/" + post.id}>
             <span className="pull-xs-right">{post.categories}</span>
             <strong>{post.title}</strong>
@@ -41,6 +41,7 @@ class PostsIndex extends Component {
 }
 
 function mapStateToProps(state) {
-  return { props: state.posts.all };
+  return { posts: state.posts.all };
 }
+
 export default connect(mapStateToProps, { fetchPosts })(PostsIndex);

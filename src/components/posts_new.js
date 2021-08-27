@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
-import React, { Component } from "react";
-import { reduxForm } from "redux-form";
+import React, { Component, PropTypes } from "react";
+import { reduxForm } from "redux-form"; // connect 함수와 거의 동일
 import { createPost } from "../actions/index";
+import { Link } from "react-router";
 
 class PostsNew extends Component {
   static contextTypes = {
@@ -25,6 +25,8 @@ class PostsNew extends Component {
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        {/* handleSubmit 함수는 최종 폼 프로퍼티를 호출하기 전, 액션 생성자가 필요함 
+            폼이 제출되면 handleSubmit 함수가 호출되고, 액션 생성자를 선택적으로 전달 */}
         <h3>Create A New Post</h3>
         <div
           className={`form-group ${
@@ -38,23 +40,25 @@ class PostsNew extends Component {
         </div>
         <div
           className={`form-group ${
-            title.touched && categories.invalid ? "has-danger" : ""
+            categories.touched && categories.invalid ? "has-danger" : ""
           }`}
         >
           <label>Categories</label>
           <input type="text" className="form-control" {...categories} />
           <div className="text-help">
-            {title.touched ? categories.error : ""}
+            {categories.touched ? categories.error : ""}
           </div>
         </div>
         <div
           className={`form-group ${
-            title.touched && contnet.invalid ? "has-danger" : ""
+            contnet.touched && contnet.invalid ? "has-danger" : ""
           }`}
         >
           <label>Content</label>
           <textarea className="form-control" {...contnet} />
-          <div className="text-help">{title.touched ? contnet.error : ""}</div>
+          <div className="text-help">
+            {contnet.touched ? contnet.error : ""}
+          </div>
         </div>
 
         <button type="submit" className="btn btn-primary">
@@ -92,6 +96,7 @@ export default reduxForm(
   {
     form: "PostsNewForm",
     fields: ["title", "categories", "content"],
+    // 리덕스 폼에게 폼을 구성하는 데이터를 알려줌
     validate,
   },
   null,
@@ -99,3 +104,8 @@ export default reduxForm(
 )(PostsNew);
 // 인풋이 변할 때마다, 인풋의 새 값이 글로벌 어플리케이션 스테이트로 세팅됨
 // 유저 타이핑 시, 이것이 어플리케이션 스테이트로 저장되고 새 스테이트는 form과 formReducer가 됨
+
+// 리덕스 폼은 액션 생성자를 컴포넌트로 중입시키고 컨테이너를 생성함
+// 리덕스 폼과 connect의 차이점은 리덕스 폼이 추가적인 요소를 가짐
+// connect: (mapStateToProps, mapDistpatchToProps)
+// reduxForm: (form config, mapStateToProps, mapDistpatchToProps)
